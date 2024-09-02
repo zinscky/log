@@ -6,12 +6,12 @@ import (
 )
 
 func TestLog(t *testing.T) {
-	log := New(Info)
+	log := New(Info, "test-app")
 
 	log.Debug("DEBUG LOG")
 	log.Info("INFO LOG")
 	log.Warn("WARN LOG")
 	log.Error("ERROR LOG")
 
-	fmt.Println(log.FormatLogs())
+	fmt.Println(log.String())
 }

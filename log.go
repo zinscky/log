@@ -16,10 +16,11 @@ const (
 type Logger struct {
 	logStr []string
 	level  int
+	app    string
 }
 
-func New(level int) *Logger {
-	return &Logger{level: level}
+func New(level int, app string) *Logger {
+	return &Logger{level: level, app: app, logStr: []string{}}
 }
 
 func (l *Logger) SetLevel(level int) {
@@ -30,11 +31,7 @@ func (l *Logger) Debug(format string, args ...any) {
 	if l.level <= 0 {
 		msg := fmt.Sprintf(format, args...)
 		now := time.Now().Format(time.RFC3339)
-		if len(l.logStr) == 0 {
-			l.logStr = []string{fmt.Sprintf("%s %s %s", now, "DEBUG", msg)}
-		} else {
-			l.logStr = append(l.logStr, fmt.Sprintf("%s %s %s", now, "DEBUG", msg))
-		}
+		l.logStr = append(l.logStr, fmt.Sprintf("%s %s [%s] %s", now, "DEBUG", l.app, msg))
 	}
 }
 
@@ -42,11 +39,7 @@ func (l *Logger) Info(format string, args ...any) {
 	if l.level <= 1 {
 		msg := fmt.Sprintf(format, args...)
 		now := time.Now().Format(time.RFC3339)
-		if len(l.logStr) == 0 {
-			l.logStr = []string{fmt.Sprintf("%s %s %s", now, "INFO", msg)}
-		} else {
-			l.logStr = append(l.logStr, fmt.Sprintf("%s %s %s", now, "INFO", msg))
-		}
+		l.logStr = append(l.logStr, fmt.Sprintf("%s %s [%s] %s", now, "INFO", l.app, msg))
 	}
 }
 
@@ -54,11 +47,7 @@ func (l *Logger) Warn(format string, args ...any) {
 	if l.level <= 2 {
 		msg := fmt.Sprintf(format, args...)
 		now := time.Now().Format(time.RFC3339)
-		if len(l.logStr) == 0 {
-			l.logStr = []string{fmt.Sprintf("%s %s %s", now, "WARN", msg)}
-		} else {
-			l.logStr = append(l.logStr, fmt.Sprintf("%s %s %s", now, "WARN", msg))
-		}
+		l.logStr = append(l.logStr, fmt.Sprintf("%s %s [%s] %s", now, "WARN", l.app, msg))
 	}
 }
 
@@ -66,14 +55,10 @@ func (l *Logger) Error(format string, args ...any) {
 	if l.level <= 3 {
 		msg := fmt.Sprintf(format, args...)
 		now := time.Now().Format(time.RFC3339)
-		if len(l.logStr) == 0 {
-			l.logStr = []string{fmt.Sprintf("%s %s %s", now, "ERROR", msg)}
-		} else {
-			l.logStr = append(l.logStr, fmt.Sprintf("%s %s %s", now, "ERROR", msg))
-		}
+		l.logStr = append(l.logStr, fmt.Sprintf("%s %s [%s] %s", now, "ERROR", l.app, msg))
 	}
 }
 
-func (l *Logger) FormatLogs() string {
+func (l *Logger) String() string {
 	return strings.Join(l.logStr, "\n")
 }
