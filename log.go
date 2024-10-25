@@ -14,51 +14,51 @@ const (
 )
 
 type Logger struct {
-	logStr []string
-	level  int
-	app    string
+	LogStr []string
+	Level  int
+	App    string
 }
 
 func New(level int, app string) *Logger {
-	return &Logger{level: level, app: app, logStr: []string{}}
+	return &Logger{Level: level, App: app, LogStr: []string{}}
 }
 
 func (l *Logger) SetLevel(level int) {
-	l.level = level
+	l.Level = level
 }
 
 func (l *Logger) Debug(format string, args ...any) {
-	if l.level <= 0 {
+	if l.Level <= 0 {
 		msg := fmt.Sprintf(format, args...)
 		now := time.Now().Format(time.RFC3339)
-		l.logStr = append(l.logStr, fmt.Sprintf("%s %s [%s] %s", now, "DEBUG", l.app, msg))
+		l.LogStr = append(l.LogStr, fmt.Sprintf("%s %s [%s] %s", now, "DEBUG", l.App, msg))
 	}
 }
 
 func (l *Logger) Info(format string, args ...any) {
-	if l.level <= 1 {
+	if l.Level <= 1 {
 		msg := fmt.Sprintf(format, args...)
 		now := time.Now().Format(time.RFC3339)
-		l.logStr = append(l.logStr, fmt.Sprintf("%s %s [%s] %s", now, "INFO", l.app, msg))
+		l.LogStr = append(l.LogStr, fmt.Sprintf("%s %s [%s] %s", now, "INFO", l.App, msg))
 	}
 }
 
 func (l *Logger) Warn(format string, args ...any) {
-	if l.level <= 2 {
+	if l.Level <= 2 {
 		msg := fmt.Sprintf(format, args...)
 		now := time.Now().Format(time.RFC3339)
-		l.logStr = append(l.logStr, fmt.Sprintf("%s %s [%s] %s", now, "WARN", l.app, msg))
+		l.LogStr = append(l.LogStr, fmt.Sprintf("%s %s [%s] %s", now, "WARN", l.App, msg))
 	}
 }
 
 func (l *Logger) Error(format string, args ...any) {
-	if l.level <= 3 {
+	if l.Level <= 3 {
 		msg := fmt.Sprintf(format, args...)
 		now := time.Now().Format(time.RFC3339)
-		l.logStr = append(l.logStr, fmt.Sprintf("%s %s [%s] %s", now, "ERROR", l.app, msg))
+		l.LogStr = append(l.LogStr, fmt.Sprintf("%s %s [%s] %s", now, "ERROR", l.App, msg))
 	}
 }
 
 func (l *Logger) String() string {
-	return strings.Join(l.logStr, "\n")
+	return strings.Join(l.LogStr, "\n")
 }
