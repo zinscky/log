@@ -1,0 +1,5 @@
+.coverage*
+coverage*
+./bin
+cmd/__debug*
+config.json
