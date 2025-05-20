@@ -91,7 +91,7 @@ func NewLogger(ctx any, level int) *FileLogger {
 	return &FileLogger{
 		Level:    level,
 		App:      app,
-		Filename: fmt.Sprintf("%s-%s.log", app, requestId),
+		Filename: fmt.Sprintf("%s.log", requestId),
 	}
 }
 
